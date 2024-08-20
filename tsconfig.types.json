@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    // Other compiler options...
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "typeRoots": ["./node_modules/@types", "./src/utils/types"],
+    "outDir": "./dist",
+  },
+  "include": [
+    "src"
+  ]
+}
