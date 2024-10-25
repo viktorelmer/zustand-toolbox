@@ -13,6 +13,7 @@
   ],
   "author": "viktorelmer",
   "main": "src/index.ts",
+  "types": "dist/utils/types/store.d.ts",
   "files": [
     "src",
     "README",
