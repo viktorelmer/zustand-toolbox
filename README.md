@@ -12,7 +12,7 @@ First you need to initiate your store, for this use lib function - **create**, t
 import { create } from "zustand-toolbox"
 
 type TParams = {
-    bears: 0;
+    bears: number;
 }
 
 type TFunctions = {
