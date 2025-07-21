@@ -9,7 +9,13 @@
   "keywords": [
     "zustand",
     "selectors",
-    "actions"
+    "actions",
+    "toolbox",
+    "zustand-toolbox",
+    "zustand toolbox",
+    "state",
+    "react",
+    "store"
   ],
   "author": "viktorelmer",
   "main": "src/index.ts",
