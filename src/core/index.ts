@@ -41,7 +41,7 @@ const unpackActions = <T extends object>(
 
 // Create store, return [useStoreHook, storeSelectors, defaultZustandStore]
 const create = <T extends object>(
-    initState: (args: any) => T,
+    initState: (set: TSetState<T>, get?: TGetState<T>) => T,
 ): [
     {
         <K extends keyof T, TK extends T[K]>(value: K | ((state: T) => TK)): TK;
@@ -56,8 +56,8 @@ const create = <T extends object>(
         };
     };
 
-    const createdStore = createStore<T>((set) => {
-        return initState(set);
+    const createdStore = createStore<T>((set, get) => {
+        return initState(set, get);
     });
 
     function store<K extends keyof T, TK extends T[K]>(
