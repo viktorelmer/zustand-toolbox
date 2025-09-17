@@ -7,7 +7,7 @@ import type { ISelector, TSetState, TGetState, TStoreActions, TStoreFullAction }
  * @param getState getState action
  */
 declare const unpackActions: <T extends object>(packedActions: Record<keyof T, TStoreFullAction<T>>, setState: TSetState<T>, getState?: TGetState<T>) => TStoreActions<T>;
-declare const create: <T extends object>(initState: (args: any) => T) => [{
+declare const create: <T extends object>(initState: (set: TSetState<T>, get?: TGetState<T>) => T) => [{
     <K extends keyof T, TK extends T[K]>(value: K | ((state: T) => TK)): TK;
     (value?: undefined): UseBoundStore<StoreApi<T>>;
 }, ISelector<T>, UseBoundStore<StoreApi<T>>];

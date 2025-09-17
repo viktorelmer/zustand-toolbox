@@ -45,8 +45,8 @@ var create = function (initState) {
             return state[key];
         };
     };
-    var createdStore = (0, zustand_1.create)(function (set) {
-        return initState(set);
+    var createdStore = (0, zustand_1.create)(function (set, get) {
+        return initState(set, get);
     });
     function store(value) {
         if (!value) {
