@@ -3,6 +3,7 @@ import {create as createStore, StoreApi, UseBoundStore} from "zustand";
 import type {
     ISelector,
     TSetState,
+    TGetState,
     TStoreActions,
     TStoreFullAction,
 } from "../utils/types/store";
@@ -11,19 +12,21 @@ import type {
  * Unpack store actions object.
  * @param packedActions all store actions imported from file
  * @param setState setState action
+ * @param getState getState action
  */
 const unpackActions = <T extends object>(
     packedActions: Record<keyof T, TStoreFullAction<T>>,
     setState: TSetState<T>,
+    getState?: TGetState<T>
 ): TStoreActions<T> => {
     const actionKeys = Object.keys(packedActions) as Array<keyof T>;
     return actionKeys.reduce((result, key) => {
         if (typeof packedActions[key] === "function") {
-            if (typeof packedActions[key](setState) === "function") {
-                return {...result, [key]: packedActions[key](setState)};
+            if (typeof packedActions[key](setState, getState) === "function") {
+                return {...result, [key]: packedActions[key](setState, getState)};
             } else {
                 console.error(
-                    `[unpackActions]: action with name "${String(key)}" has wrong return, it's should be \n(setState: SetState) => (...args: any[]) => {...}\nbut it \n(setState: SetState) => {...}`,
+                  `[unpackActions]: action with name "${String(key)}" has wrong return, it's should be \n(setState: SetState, getState?: GetState) => (...args: any[]) => {...}\nbut it \n(setState: SetState, getState?: GetState) => {...}`,
                 );
             }
         } else {
