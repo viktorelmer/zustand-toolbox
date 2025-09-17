@@ -14,12 +14,12 @@ import type {
  * @param setState setState action
  * @param getState getState action
  */
-const unpackActions = <T extends object>(
-    packedActions: Record<keyof T, TStoreFullAction<T>>,
+const unpackActions = <T extends object, K extends keyof T>(
+    packedActions: Record<K, TStoreFullAction<T>>,
     setState: TSetState<T>,
     getState?: TGetState<T>
-): TStoreActions<T> => {
-    const actionKeys = Object.keys(packedActions) as Array<keyof T>;
+): TStoreActions<T, K> => {
+    const actionKeys = Object.keys(packedActions) as Array<K>;
     return actionKeys.reduce((result, key) => {
         if (typeof packedActions[key] === "function") {
             if (typeof packedActions[key](setState, getState) === "function") {
@@ -36,12 +36,12 @@ const unpackActions = <T extends object>(
         }
 
         return result;
-    }, {} as TStoreActions<T>);
+    }, {} as TStoreActions<T, K>);
 };
 
 // Create store, return [useStoreHook, storeSelectors, defaultZustandStore]
 const create = <T extends object>(
-    initState: (set: TSetState<T>, get?: TGetState<T>) => T,
+    initState: (set: TSetState<T>, get: TGetState<T>) => T,
 ): [
     {
         <K extends keyof T, TK extends T[K]>(value: K | ((state: T) => TK)): TK;
