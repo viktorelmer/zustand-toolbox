@@ -14,7 +14,7 @@ import type {
  * @param setState setState action
  * @param getState getState action
  */
-const unpackActions = <T extends object, K extends keyof T>(
+const unpackActions = <T extends object, K extends keyof T = keyof T>(
     packedActions: Record<K, TStoreFullAction<T>>,
     setState: TSetState<T>,
     getState?: TGetState<T>
