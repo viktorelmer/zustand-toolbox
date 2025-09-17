@@ -17,17 +17,18 @@ var zustand_1 = require("zustand");
  * Unpack store actions object.
  * @param packedActions all store actions imported from file
  * @param setState setState action
+ * @param getState getState action
  */
-var unpackActions = function (packedActions, setState) {
+var unpackActions = function (packedActions, setState, getState) {
     var actionKeys = Object.keys(packedActions);
     return actionKeys.reduce(function (result, key) {
         var _a;
         if (typeof packedActions[key] === "function") {
-            if (typeof packedActions[key](setState) === "function") {
-                return __assign(__assign({}, result), (_a = {}, _a[key] = packedActions[key](setState), _a));
+            if (typeof packedActions[key](setState, getState) === "function") {
+                return __assign(__assign({}, result), (_a = {}, _a[key] = packedActions[key](setState, getState), _a));
             }
             else {
-                console.error("[unpackActions]: action with name \"".concat(String(key), "\" has wrong return, it's should be \n(setState: SetState) => (...args: any[]) => {...}\nbut it \n(setState: SetState) => {...}"));
+                console.error("[unpackActions]: action with name \"".concat(String(key), "\" has wrong return, it's should be \n(setState: SetState, getState?: GetState) => (...args: any[]) => {...}\nbut it \n(setState: SetState, getState?: GetState) => {...}"));
             }
         }
         else {

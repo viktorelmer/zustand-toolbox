@@ -1,6 +1,6 @@
 {
   "name": "zustand-toolbox",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "Actions unpacker and selector generator for zustand",
   "repository": {
     "type": "git",
@@ -18,18 +18,23 @@
     "store"
   ],
   "author": "viktorelmer",
-  "main": "src/index.ts",
-  "types": "dist/utils/types/store.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
-    "src",
-    "README",
-    "LICENSE"
+    "/dist"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:types": "tsc --project ./tsconfig.types.json",
     "build:dist": "tsc --project ./tsconfig.json",
-    "build": "rm -rf dist && npm run build:types && npm run build:dist"
+    "build": "rm -rf dist && npm run build:types && npm run build:dist",
+    "publish:package": "yarn build && npm publish"
   },
   "private": false,
   "devDependencies": {

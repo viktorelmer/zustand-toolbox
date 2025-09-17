@@ -81,6 +81,7 @@ const create = <T extends object>(
         return createdStore((state) => state[value]);
     }
 
+
     return [store, selectors, createdStore];
 };
 
